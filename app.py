@@ -111,10 +111,14 @@ def addSymptomInList(req, symptoms):
         print("Error in Process Request. + " )
 
 def predictDisease(req):
-
+    print("In predict disease")
     sessionId = req.get("sessionId")                #String
     #return "Symptoms are " + (", ".join(UserSymptomsData[sessionId]))
-    disease_predict = NaiveBayes.predict_disease(UserSymptomsData[sessionId])
+    try:
+        disease_predict = NaiveBayes.predict_disease(UserSymptomsData[sessionId])
+    except Exception as e:
+        print("Error()" + e)
+    print ("Disease predicted is:" + disease_predict[0][0])
     reply = "The top 3 predicted diseases for you along with probab:\n"
     reply = reply + "disease: " + disease_predict[0][0] + " with probab: " + str(disease_predict[0][1]) + "\n"
     reply = reply + "disease: " + disease_predict[1][0] + " with probab: " + str(disease_predict[1][1]) + "\n"
