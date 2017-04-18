@@ -116,8 +116,8 @@ def predictDisease(req):
     #return "Symptoms are " + (", ".join(UserSymptomsData[sessionId]))
     try:
         disease_predict = NaiveBayes.predict_disease(UserSymptomsData[sessionId])
-    except Exception as e:
-        print("Error()" + e)
+    except:
+        print("Error in predict disease")
     print ("Disease predicted is:" + disease_predict[0][0])
     reply = "The top 3 predicted diseases for you along with probab:\n"
     reply = reply + "disease: " + disease_predict[0][0] + " with probab: " + str(disease_predict[0][1]) + "\n"

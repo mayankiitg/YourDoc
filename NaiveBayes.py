@@ -60,12 +60,15 @@ from globalData import *
 
 def predict_disease(symptoms):
     #print "dsf"
+    print "Inside predict disease naivebayes file"
     nsymp = len(symp)
     check = [0 for col in range(nsymp)]
     for i in symptoms:
         check[symp.index(i)] = 1
 
+    print "Classifier before"
     disease_pred_probab = mnb_classifier.predict_proba(check)[0]
+    print "classified: disease: " , disease_pred_probab
     sorted_probabs_indexes = np.argsort(disease_pred_probab)
     disease_top_3 = []
     disease_top_3.append([dise[sorted_probabs_indexes[len(sorted_probabs_indexes)-1]],disease_pred_probab[sorted_probabs_indexes[len(sorted_probabs_indexes)-1]]])
