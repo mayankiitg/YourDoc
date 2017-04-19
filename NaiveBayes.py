@@ -63,6 +63,7 @@ def predict_disease(symptoms):
     print "Inside predict disease naivebayes file"
     nsymp = len(symp)
     check = [0 for col in range(nsymp)]
+    print symp
     for i in symptoms:
         check[symp.index(i)] = 1
 

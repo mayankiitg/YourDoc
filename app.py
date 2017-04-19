@@ -61,11 +61,19 @@ def processRequest(req):
             else:
                 print("Symptoms Found")
                 addSymptomInList(req, symptoms)
-                outStr = "Do You have any other symptom"
+                outStr = "Do You have any other symptom" + " ".join(symptoms)
 
         elif req.get("result").get("action") == "predict_disease":
             print("Action: predict_disease")
             outStr = predictDisease(req)
+
+        elif req.get("result").get("action") == "flush_session":
+            print("Good Bye message")
+            sessionId = req.get("sessionId")                #String
+            if sessionId in UserSymptomsData:
+                print("session data deleted..")
+                UserSymptomsData.pop(sessionId, None)
+            return {}
         
         else:
             print("No action Detected")
@@ -149,8 +157,8 @@ if __name__ == '__main__':
     print("Starting app on port %d" % port)
     with open("nodetable.csv","r") as csvfile:
         reader = csv.reader(csvfile)
-        symp = []
-        dise = []
+        #symp = []
+        #dise = []
         for row in reader:
             if row[2] == 'symptom':
                 symp.append(row[1])
@@ -160,6 +168,8 @@ if __name__ == '__main__':
     #with open("allsymptoms.txt", 'rb') as f:
     #SymptomList = f.read().split("\n")
     print("Loaded all symptoms, Length: %d", len(symp))
+    #disease_predict = NaiveBayes.predict_disease(['fever','snuffle','throat sore','malaise' ])
+    #print(disease_predict)
     app.run(debug=False, port=port, host='0.0.0.0')
 
 
