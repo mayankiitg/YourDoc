@@ -73,7 +73,7 @@ def processRequest(req):
             if sessionId in UserSymptomsData:
                 print("session data deleted..")
                 UserSymptomsData.pop(sessionId, None)
-            return {}
+            outStr = "Goodbye. Happy to help :)"
         
         else:
             print("No action Detected")
