@@ -55,6 +55,7 @@ def processRequest(req):
             print("Action: add_symptom")
             symptoms = retrieveSymptom(req)
             print("Symptoms detected" + " ".join(symptoms))
+            print("Len of symptom: ", len(symptoms))
             if len(symptoms) == 0:
                 print("No Symptom Found")
                 outStr = "Couldn't Understand the symptom. Kindly rephrase ur query."
@@ -117,6 +118,7 @@ def retrieveSymptom(req):
                     break
             if check == True:
                 ans.append(symptom)
+                print("Found symptom: '" + symptom + "' in sent" + sent)
     except:
         print("Error:" )
     return ans
