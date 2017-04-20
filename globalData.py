@@ -5,3 +5,4 @@ import numpy as np
 mnb_classifier = MultinomialNB()
 symp = []
 dise = []
+cooccurMat = []

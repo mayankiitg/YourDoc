@@ -155,6 +155,20 @@ def makeWebhookResult(outStr):
         
     }
 
+#Input: list of strings: each string is a symptom.
+#Output: Most probable next symptom. 
+def getRelatedSymptoms(symptoms, count):
+    l = [symp.index(symptom) for symptom in symptoms]
+    Scores = cooccurMat[l[0]]
+    for i in range(1, len(symptoms)):
+        Scores = Scores * cooccurMat[l[i]]
+    for i in range(0, len(l)):
+        Scores[l[i]] = 0
+    sortedInd = np.argsort(Scores)
+    n = len(Scores)
+    sortedInd[n-1]
+    return [symp[sortedInd[n-i]] for i in range(1,count+1)]
+
 def makeWebhookResultForNextSymptom(outStr,symptomList):
     print("Response:")
     print(outStr)
@@ -169,25 +183,25 @@ def makeWebhookResultForNextSymptom(outStr,symptomList):
                 {
                     "content_type":"text",
                     "title":symptomList[0],
-                    "payload":symptomList[0],
+                    "payload":"I have " + symptomList[0],
                     #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 {
                     "content_type":"text",
                     "title":symptomList[1],
-                    "payload":symptomList[1],
+                    "payload":"I have" + symptomList[1],
                     #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 {
                     "content_type":"text",
                     "title":symptomList[2],
-                    "payload":symptomList[2],
+                    "payload":"I have" +symptomList[2],
                     #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 {
                     "content_type":"text",
                     "title":symptomList[3],
-                    "payload":symptomList[3],
+                    "payload":"I have" +symptomList[3],
                     #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 ]
@@ -204,10 +218,7 @@ if __name__ == '__main__':
     target = [int(x[407])-1 for x in dataset]
     train = [x[0:405] for x in dataset]
     mnb_classifier = mnb_classifier.fit(train,target)
-    port = int(os.getenv('PORT', 5000))
 
-
-    print("Starting app on port %d" % port)
     with open("nodetable.csv","r") as csvfile:
         reader = csv.reader(csvfile)
         #symp = []
@@ -217,12 +228,31 @@ if __name__ == '__main__':
                 symp.append(row[1])
             if row[2] == 'disease':
                 dise.append(row[1])
+    print("Loaded all symptoms, Length:", len(symp))
+    print("Building Co-occurence Matrix")
+    nsymp = len(symp)
+    cooccurMat = np.zeros((nsymp, nsymp), dtype=np.int)
+    for x in dataset:
+        for i in range(0, 404):
+            for j in range(i+1, 405):
+                if int(x[i]) == 1 and int(x[j]) == 1:
+                    # if i == 1 and j == 2:
+                    #     print(dise[int(x[407])-1])
+                    #     print(int(x[405]))
+                    cooccurMat[i][j] += int(x[405])
+                    cooccurMat[j][i] += int(x[405])
+    symptoms_1stDis = [symp[i] for i in range(405) if int(dataset[0][i]) == 1]
+    # print("1st disease symptoms: disease: ", dise[0], symptoms_1stDis)
+    # print([symp[i] for i in range(10)])
+    # print(cooccurMat[:10, :10])
+    # print("Related syptom to first 5 syptom of 1st dis", getRelatedSymptoms(symptoms_1stDis[:5], 5))
+    # print("cooccurMat for first symptom\n", cooccurMat[0])
 
     #with open("allsymptoms.txt", 'rb') as f:
     #SymptomList = f.read().split("\n")
-    print("Loaded all symptoms, Length: %d", len(symp))
     #disease_predict = NaiveBayes.predict_disease(['fever','snuffle','throat sore','malaise' ])
     #print(disease_predict)
-    app.run(debug=False, port=port, host='0.0.0.0')
 
-
+    port = int(os.getenv('PORT', 5000))
+    print("Starting app on port %d" % port)
+    # app.run(debug=False, port=port, host='0.0.0.0')
