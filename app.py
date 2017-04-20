@@ -62,7 +62,7 @@ def processRequest(req):
             else:
                 print("Symptoms Found")
                 addSymptomInList(req, symptoms)
-                outStr = "Do You have any other symptom" + " ".join(UserSymptomsData[req.get("sessionId")]) + " id: " + req.get("sessionId")
+                outStr = "Do You have any other symptom. Current Symptom List: " + " ".join(UserSymptomsData[req.get("sessionId")])
 
         elif req.get("result").get("action") == "predict_disease":
             print("Action: predict_disease")
@@ -110,7 +110,7 @@ def retrieveSymptom(req):
             # delimiters = " ", "-"
             # regexPattern = '|'.join(map(re.escape, delimiters))
             # words = re.split(regexPattern, symptom)
-            words = symptom.split(" ")
+            words = symptom.strip().split(" ")
             check = True
             for word in words:
                 if word not in sent:
