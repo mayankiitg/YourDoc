@@ -140,7 +140,16 @@ def makeWebhookResult(outStr):
     return {
         "speech": outStr,
         "displayText": outStr,
-        # "data": "data",
+        "data": {"facebook": {
+        "text":"Please share your location:",
+         "quick_replies":[
+        {
+            "content_type":"location",
+        }
+        ]
+        }
+
+        },
         # "contextOut": [],
         "source": "yourdoc"
         
