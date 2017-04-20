@@ -77,8 +77,11 @@ def processRequest(req):
             return makeWebhookResultAskLocation(outStr)
 
         elif req.get("result").get("action") == "predict_hospital":
-            print(req)
-
+            latitude = req.get("result").get("contexts").get("parameters").get("lat")
+            longitude = req.get("result").get("contexts").get("parameters").get("long")
+            print(latitude, longitude)
+            outStr = "Google Maps URL:\n" + "https://www.google.com/maps/search/hospitals/@" + str(latitude) + "," + str(longitude) + ",13z"
+            
         elif req.get("result").get("action") == "flush_session":
             print("Good Bye message")
             sessionId = req.get("sessionId")                #String
@@ -202,7 +205,7 @@ def makeWebhookResultForNextSymptom(outStr,symptomList):
         "displayText": outStr,
          "data": {"facebook": 
             {
-                "text":"Pick a color:",
+                "text":outStr,
                 "quick_replies":[
                 {
                     "content_type":"text",
