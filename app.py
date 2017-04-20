@@ -66,6 +66,18 @@ def processRequest(req):
         elif req.get("result").get("action") == "predict_disease":
             print("Action: predict_disease")
             outStr = predictDisease(req)
+            outStr += "\n Do you also have any of these symptoms."
+            sessionId = req.get("sessionId")
+            relatedSymptoms = getRelatedSymptoms(UserSymptomsData[sessionId], 4)
+            return makeWebhookResultForNextSymptom(outStr, relatedSymptoms)
+
+        elif req.get("result").get("action") == "get_user_location":
+            print("Action: get_user_location")
+            outStr = "Please provide your location  by clicking below."
+            return makeWebhookResultFBLocation(outStr)
+
+        elif req.get("result").get("action") == "predict_hospital":
+            print(req)
 
         elif req.get("result").get("action") == "flush_session":
             print("Good Bye message")
@@ -140,6 +152,18 @@ def makeWebhookResult(outStr):
     return {
         "speech": outStr,
         "displayText": outStr,
+        "data": {},
+        # "contextOut": [],
+        "source": "yourdoc"  
+    }
+
+def makeWebhookResultFBLocation(outStr):
+    print("Response:")
+    print(outStr)
+
+    return {
+        "speech": outStr,
+        "displayText": outStr,
         "data": {"facebook": {
         "text":"Please share your location:",
          "quick_replies":[
@@ -151,8 +175,7 @@ def makeWebhookResult(outStr):
 
         },
         # "contextOut": [],
-        "source": "yourdoc"
-        
+        "source": "yourdoc"  
     }
 
 #Input: list of strings: each string is a symptom.
