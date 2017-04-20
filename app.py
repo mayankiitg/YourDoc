@@ -74,7 +74,7 @@ def processRequest(req):
         elif req.get("result").get("action") == "get_user_location":
             print("Action: get_user_location")
             outStr = "Please provide your location  by clicking below."
-            return makeWebhookResultFBLocation(outStr)
+            return makeWebhookResultAskLocation(outStr)
 
         elif req.get("result").get("action") == "predict_hospital":
             print(req)
@@ -152,12 +152,14 @@ def makeWebhookResult(outStr):
     return {
         "speech": outStr,
         "displayText": outStr,
+
         "data": {},
         # "contextOut": [],
         "source": "yourdoc"  
     }
 
-def makeWebhookResultFBLocation(outStr):
+
+def makeWebhookResultAskLocation(outStr):
     print("Response:")
     print(outStr)
 
@@ -177,7 +179,6 @@ def makeWebhookResultFBLocation(outStr):
         # "contextOut": [],
         "source": "yourdoc"  
     }
-
 #Input: list of strings: each string is a symptom.
 #Output: Most probable next symptom. 
 def getRelatedSymptoms(symptoms, count):
