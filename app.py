@@ -218,19 +218,19 @@ def makeWebhookResultForNextSymptom(outStr,symptomList):
                 {
                     "content_type":"text",
                     "title":symptomList[1],
-                    "payload":"I have" + symptomList[1],
+                    "payload":"I have " + symptomList[1],
                     #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 {
                     "content_type":"text",
                     "title":symptomList[2],
-                    "payload":"I have" +symptomList[2],
+                    "payload":"I have " +symptomList[2],
                     #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 {
                     "content_type":"text",
                     "title":symptomList[3],
-                    "payload":"I have" +symptomList[3],
+                    "payload":"I have " +symptomList[3],
                     #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 ]
