@@ -61,7 +61,7 @@ def processRequest(req):
             else:
                 print("Symptoms Found")
                 addSymptomInList(req, symptoms)
-                outStr = "Do You have any other symptom" + " ".join(symptoms)
+                outStr = "Do You have any other symptom" + " ".join(UserSymptomsData[req.get("sessionId")]) + " id: " + req.get("sessionId")
 
         elif req.get("result").get("action") == "predict_disease":
             print("Action: predict_disease")
