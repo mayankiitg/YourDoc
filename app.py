@@ -140,9 +140,29 @@ def makeWebhookResult(outStr):
     return {
         "speech": outStr,
         "displayText": outStr,
-        # "data": data,
+         "data": {"facebook": 
+            {
+                "text":"Pick a color:",
+                "quick_replies":[
+                {
+                    "content_type":"text",
+                    "title":"Red",
+                    "payload":"Red",
+                    "image_url":"http://petersfantastichats.com/img/red.png"
+                },
+                {
+                    "content_type":"text",
+                    "title":"Green",
+                    "payload":"green",
+                    "image_url":"http://petersfantastichats.com/img/green.png"
+                }
+                ]
+            }
+
+        },
         # "contextOut": [],
         "source": "yourdoc"
+        
     }
 
 
