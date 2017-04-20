@@ -140,6 +140,18 @@ def makeWebhookResult(outStr):
     return {
         "speech": outStr,
         "displayText": outStr,
+        #"data": "data",
+        # "contextOut": [],
+        "source": "yourdoc"
+        
+    }
+def makeWebhookResultAskLocation(outStr):
+    print("Response:")
+    print(outStr)
+
+    return {
+        "speech": outStr,
+        "displayText": outStr,
         "data": {"facebook": {
         "text":"Please share your location:",
          "quick_replies":[
@@ -154,7 +166,6 @@ def makeWebhookResult(outStr):
         "source": "yourdoc"
         
     }
-
 #Input: list of strings: each string is a symptom.
 #Output: Most probable next symptom. 
 def getRelatedSymptoms(symptoms, count):
