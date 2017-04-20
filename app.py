@@ -140,7 +140,16 @@ def makeWebhookResult(outStr):
     return {
         "speech": outStr,
         "displayText": outStr,
-        # "data": "data",
+        "data": {"facebook": {
+        "text":"Please share your location:",
+         "quick_replies":[
+        {
+            "content_type":"location",
+        }
+        ]
+        }
+
+        },
         # "contextOut": [],
         "source": "yourdoc"
         
@@ -174,25 +183,25 @@ def makeWebhookResultForNextSymptom(outStr,symptomList):
                 {
                     "content_type":"text",
                     "title":symptomList[0],
-                    "payload":symptomList[0],
+                    "payload":"I have " + symptomList[0],
                     #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 {
                     "content_type":"text",
                     "title":symptomList[1],
-                    "payload":symptomList[1],
+                    "payload":"I have" + symptomList[1],
                     #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 {
                     "content_type":"text",
                     "title":symptomList[2],
-                    "payload":symptomList[2],
+                    "payload":"I have" +symptomList[2],
                     #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 {
                     "content_type":"text",
                     "title":symptomList[3],
-                    "payload":symptomList[3],
+                    "payload":"I have" +symptomList[3],
                     #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 ]
