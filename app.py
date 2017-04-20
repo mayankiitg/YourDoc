@@ -107,6 +107,8 @@ def retrieveSymptom(req):
     try:
         sent = req.get("result").get("resolvedQuery").lower()
         for symptom in symp:
+            if len(symptom.strip()) == 0:
+                continue
             # delimiters = " ", "-"
             # regexPattern = '|'.join(map(re.escape, delimiters))
             # words = re.split(regexPattern, symptom)
@@ -260,6 +262,7 @@ if __name__ == '__main__':
     print("Loaded all symptoms, Length:", len(symp))
     print("Building Co-occurence Matrix")
     nsymp = len(symp)
+    
     cooccurMat = np.zeros((nsymp, nsymp), dtype=np.int)
     for x in dataset:
         for i in range(0, 404):
