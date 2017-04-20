@@ -140,22 +140,47 @@ def makeWebhookResult(outStr):
     return {
         "speech": outStr,
         "displayText": outStr,
+        # "data": "data",
+        # "contextOut": [],
+        "source": "yourdoc"
+        
+    }
+
+def makeWebhookResultForNextSymptom(outStr,symptomList):
+    print("Response:")
+    print(outStr)
+
+    return {
+        "speech": outStr,
+        "displayText": outStr,
          "data": {"facebook": 
             {
                 "text":"Pick a color:",
                 "quick_replies":[
                 {
                     "content_type":"text",
-                    "title":"Red",
-                    "payload":"Red",
-                    "image_url":"http://petersfantastichats.com/img/red.png"
+                    "title":symptomList[0],
+                    "payload":symptomList[0],
+                    #"image_url":"http://petersfantastichats.com/img/red.png"
                 },
                 {
                     "content_type":"text",
-                    "title":"Green",
-                    "payload":"green",
-                    "image_url":"http://petersfantastichats.com/img/green.png"
-                }
+                    "title":symptomList[1],
+                    "payload":symptomList[1],
+                    #"image_url":"http://petersfantastichats.com/img/red.png"
+                },
+                {
+                    "content_type":"text",
+                    "title":symptomList[2],
+                    "payload":symptomList[2],
+                    #"image_url":"http://petersfantastichats.com/img/red.png"
+                },
+                {
+                    "content_type":"text",
+                    "title":symptomList[3],
+                    "payload":symptomList[3],
+                    #"image_url":"http://petersfantastichats.com/img/red.png"
+                },
                 ]
             }
 
@@ -164,7 +189,6 @@ def makeWebhookResult(outStr):
         "source": "yourdoc"
         
     }
-
 
 if __name__ == '__main__':
     dataset = genfromtxt(open('dataset1.csv','r'), delimiter=',', dtype='f8')[1:]   
