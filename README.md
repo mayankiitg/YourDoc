@@ -17,3 +17,4 @@ The service packs the result in the Api.ai webhook-compatible response JSON and 
 
 This is a chatbot for prediction of diseases given symptoms.
 
+Adding a line: Mayank
