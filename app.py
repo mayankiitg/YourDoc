@@ -140,9 +140,10 @@ def makeWebhookResult(outStr):
     return {
         "speech": outStr,
         "displayText": outStr,
-        # "data": data,
+        # "data": "data",
         # "contextOut": [],
         "source": "yourdoc"
+        
     }
 
 #Input: list of strings: each string is a symptom.
@@ -158,6 +159,50 @@ def getRelatedSymptoms(symptoms, count):
     n = len(Scores)
     sortedInd[n-1]
     return [symp[sortedInd[n-i]] for i in range(1,count+1)]
+
+def makeWebhookResultForNextSymptom(outStr,symptomList):
+    print("Response:")
+    print(outStr)
+
+    return {
+        "speech": outStr,
+        "displayText": outStr,
+         "data": {"facebook": 
+            {
+                "text":"Pick a color:",
+                "quick_replies":[
+                {
+                    "content_type":"text",
+                    "title":symptomList[0],
+                    "payload":symptomList[0],
+                    #"image_url":"http://petersfantastichats.com/img/red.png"
+                },
+                {
+                    "content_type":"text",
+                    "title":symptomList[1],
+                    "payload":symptomList[1],
+                    #"image_url":"http://petersfantastichats.com/img/red.png"
+                },
+                {
+                    "content_type":"text",
+                    "title":symptomList[2],
+                    "payload":symptomList[2],
+                    #"image_url":"http://petersfantastichats.com/img/red.png"
+                },
+                {
+                    "content_type":"text",
+                    "title":symptomList[3],
+                    "payload":symptomList[3],
+                    #"image_url":"http://petersfantastichats.com/img/red.png"
+                },
+                ]
+            }
+
+        },
+        # "contextOut": [],
+        "source": "yourdoc"
+        
+    }
 
 if __name__ == '__main__':
     dataset = genfromtxt(open('dataset1.csv','r'), delimiter=',', dtype='f8')[1:]   
