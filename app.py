@@ -83,7 +83,7 @@ def processRequest(req):
             latitude = req.get("result").get("contexts")[0].get("parameters").get("lat")
             longitude = req.get("result").get("contexts")[0].get("parameters").get("long")
             print(latitude, longitude)
-            outStr = "Google Maps URL:\n" + "https://www.google.com/maps/search/hospitals/@" + str(latitude) + "," + str(longitude) + ",13z"
+            outStr = "To see nearby hospitals visit :\n" + "https://www.google.com/maps/search/hospitals/@" + str(latitude) + "," + str(longitude) + ",13z"
 
         elif req.get("result").get("action") == "flush_session":
             print("Good Bye message")
@@ -182,7 +182,7 @@ def makeWebhookResultAskLocation(outStr):
         "speech": outStr,
         "displayText": outStr,
         "data": {"facebook": {
-        "text":"Please share your location:",
+        "text":outStr,
          "quick_replies":[
         {
             "content_type":"location",
