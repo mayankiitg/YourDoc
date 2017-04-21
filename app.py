@@ -138,7 +138,9 @@ def addSymptomInList(req, symptoms):
         # symptoms = req.get("result").get("parameters").get("Symptoms")    #List of string
         sessionId = req.get("sessionId")                #String
         if sessionId in UserSymptomsData:
-            UserSymptomsData[sessionId] += symptoms
+            for syptom in symptoms:
+                if symptom not in UserSymptomsData[sessionId]:
+                    UserSymptomsData[sessionId].append(symptom)
         else:
             UserSymptomsData[sessionId] = symptoms
         print("Added following symptom: in session " + str(sessionId) + " ".join(symptoms))
