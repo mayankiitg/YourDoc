@@ -54,6 +54,8 @@ def processRequest(req):
         if req.get("result").get("action") == "add_symptom":
             print("Action: add_symptom")
             symptoms = retrieveSymptom(req)
+            symptoms = [symptom.lower() for symptom in symptoms]
+            symptoms = list(set(symptoms))
             print("Symptoms detected" + " ".join(symptoms))
             print("Len of symptom: ", len(symptoms))
             if len(symptoms) == 0:
