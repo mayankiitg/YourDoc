@@ -62,7 +62,7 @@ def processRequest(req):
             else:
                 print("Symptoms Found")
                 addSymptomInList(req, symptoms)
-                outStr =  "Apart from " + ", ".join(UserSymptomsData[req.get("sessionId")] + " do you have any other symptom?")
+                outStr =  "Apart from " + ", ".join(UserSymptomsData[req.get("sessionId")]) + " do you have any other symptom?"
 
         elif req.get("result").get("action") == "predict_disease":
             print("Action: predict_disease")
@@ -119,8 +119,13 @@ def retrieveSymptom(req):
                     check = False
                     break
             if check == True:
-                ans.append(symptom)
-                print("Found symptom: '" + symptom + "' in sent" + sent)
+                if symptom not in ans:
+                    ans.append(symptom)
+                    print("Found symptom: '" + symptom + "' in sent" + sent)
+        symptoms2 = req.get('result').get('parameters').get("Symptoms")
+        for s in symptoms2:
+            if s not in ans:
+                ans.append(s)
     except:
         print("Error:" )
     return ans
