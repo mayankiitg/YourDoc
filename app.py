@@ -62,7 +62,7 @@ def processRequest(req):
             else:
                 print("Symptoms Found")
                 addSymptomInList(req, symptoms)
-                outStr = "Do You have any other symptom. Current Symptom List: " + " ".join(UserSymptomsData[req.get("sessionId")])
+                outStr =  "Apart from " + ", ".join(UserSymptomsData[req.get("sessionId")] + " do you have any other symptom?")
 
         elif req.get("result").get("action") == "predict_disease":
             print("Action: predict_disease")
@@ -74,7 +74,7 @@ def processRequest(req):
 
         elif req.get("result").get("action") == "get_user_location":
             print("Action: get_user_location")
-            outStr = "Please provide your location  by clicking below."
+            outStr = "To know nearby hospitals, please provide your location by clicking below."
             return makeWebhookResultAskLocation(outStr)
 
         elif req.get("result").get("action") == "predict_hospital":
@@ -146,10 +146,10 @@ def predictDisease(req):
     except:
         print("Error in predict disease")
     print ("Disease predicted is:" + disease_predict[0][0])
-    reply = "The top 3 predicted diseases for you along with probab:\n"
-    reply = reply + "disease: " + disease_predict[0][0] + " with probab: " + str(disease_predict[0][1]) + "\n"
-    reply = reply + "disease: " + disease_predict[1][0] + " with probab: " + str(disease_predict[1][1]) + "\n"
-    reply = reply + "disease: " + disease_predict[2][0] + " with probab: " + str(disease_predict[2][1]) + "\n"
+    reply = "The top 3 predicted diseases for you along with confidence:\n"
+    reply = reply + "1 " + disease_predict[0][0] + " : " + "{:2.3f}".format(disease_predict[0][1]*100) + "%\n"
+    reply = reply + "2 " + disease_predict[1][0] + " : " + "{:2.3f}".format(disease_predict[1][1]*100) + "%\n"
+    reply = reply + "3 " + disease_predict[2][0] + " : " + "{:2.3f}".format(disease_predict[2][1]*100) + "%\n"
     return reply
 
 def makeWebhookResult(outStr):
