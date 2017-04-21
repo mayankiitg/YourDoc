@@ -114,7 +114,7 @@ def retrieveSymptom(req):
             # delimiters = " ", "-"
             # regexPattern = '|'.join(map(re.escape, delimiters))
             # words = re.split(regexPattern, symptom)
-            words = symptom.strip().split(" ")
+            words = symptom.strip().lower().split(" ")
             check = True
             for word in words:
                 if word not in sent:
@@ -126,6 +126,7 @@ def retrieveSymptom(req):
                     print("Found symptom: '" + symptom + "' in sent" + sent)
         symptoms2 = req.get('result').get('parameters').get("Symptoms")
         for s in symptoms2:
+            s= s.lower()
             if s not in ans:
                 ans.append(s)
     except:
